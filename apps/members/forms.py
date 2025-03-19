@@ -1,8 +1,9 @@
 from apps.members.models import Member
 from django import forms
+from shared.forms import BootstrapModelForm
 
 
-class MemberForm(forms.ModelForm):
+class MemberForm(BootstrapModelForm):
 
     class Meta:
         model = Member
@@ -35,4 +36,19 @@ class MemberForm(forms.ModelForm):
                 format='%Y-%m-%d'
             ),
             'notes': forms.Textarea(attrs={'rows': 4}),
+        }
+        labels = {
+            'full_name': 'Nome Completo',
+            'cpf': 'CPF',
+            'gender': 'Gênero',
+            'civil_status': 'Estado Civil',
+            'birth_date': 'Data de Nascimento',
+            'member_since': 'Membro Desde',
+            'phone': 'Telefone',
+            'email': 'E-mail',
+            'address': 'Endereço',
+            'category': 'Categoria',
+            'status': 'Status',
+            'baptism_date': 'Data de Batismo',
+            'notes': 'Observações',
         }

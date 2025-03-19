@@ -4,30 +4,42 @@
 
 {% block content %}
 
-    <h1>Membros</h1>
+    <h3>Membros</h3>
 
-    <a href="{% url "members:create" %}">Novo membro</a>
+    <a href="{% url "members:create" %}" class="btn btn-primary btn-sm mb-3">Novo membro</a>
 
     <form method="get">
-        <input type="text" name="q" placeholder="Buscar membro">
+        <input type="text" name="q" placeholder="Buscar membro" class="form-control" value="{{ request.GET.q }}">
     </form>
 
-    <ul>
-        {% for member in members %}
-            <li>
-                {{ member.full_name }} -
-                <a href="{% url "members:update" member.id %}">Editar</a>
-                <a href="{% url "members:delete" member.id %}">Excluir</a>
-            </li>
-        {% empty %}
-            <li>
-                {% if request.GET.q %}
-                    Nenhum membro encontrado.
-                {% else %}
-                    Nenhum membro cadastrado.
-                {% endif %}
-            </li>
-        {% endfor %}
-    </ul>
+    <table class="table my-3">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for member in members %}
+                <tr>
+                    <td>{{ member.full_name }}</td>
+                    <td class="text-end">
+                        <a href="{% url "members:update" member.id %}" class="me-3">Editar</a>
+                        <a href="{% url "members:delete" member.id %}" class="text-danger">Excluir</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="2" class="text-center">
+                        {% if request.GET.q %}
+                            Nenhum membro encontrado.
+                        {% else %}
+                            Nenhum membro cadastrado.
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
 {% endblock content %}

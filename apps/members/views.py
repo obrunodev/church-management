@@ -15,6 +15,9 @@ class MemberListView(LoginRequiredMixin, ListView):
     model = Member
     context_object_name = 'members'
 
+    def get_queryset(self):
+        return Member.objects.get_members(self.request)
+
 
 class MemberUpdateView(LoginRequiredMixin, UpdateView):
     model = Member

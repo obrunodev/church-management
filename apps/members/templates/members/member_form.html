@@ -15,7 +15,7 @@
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Salvar</button>
+        <button type="submit" class="btn btn-primary mb-3">Salvar</button>
     </form>
 
 {% endblock content %}

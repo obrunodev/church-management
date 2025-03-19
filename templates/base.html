@@ -1,11 +1,40 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" class="remember-theme">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock title %} | Church management</title>
+
+    <meta name="description" content="Sistema de gestão de igrejas">
+    <meta name="author" content="Bruno R. Pianca">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Sistema de gestão de igrejas">
+    <meta property="og:site_name" content="Church management">
+    <meta property="og:description" content="Sistema de gestão de igrejas">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <link rel="shortcut icon" href="assets/media/favicons/favicon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/media/favicons/favicon-192x192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/media/favicons/apple-touch-icon-180x180.png">
+    <link rel="stylesheet" id="css-main" href="{% static "css/codebase.min.css" %}">
+    <script src="{% static "js/setTheme.js" %}"></script>
 </head>
 <body>
-    {% block content %}{% endblock content %}
+    <div id="page-container" class="sidebar-o enable-page-overlay side-scroll page-header-modern main-content-boxed">
+        {% if user.is_authenticated %}
+            {% include "partials/aside.html" %}
+            {% include "partials/sidebar.html" %}
+            {% include "partials/header.html" %}
+        {% endif %}
+        <main id="main-container">
+            <div class="content">
+                {% block content %}{% endblock content %}
+            </div>
+        </main>
+    </div>
+
+    <script src="{% static "js/codebase.app.min.js" %}"></script>
 </body>
 </html>
