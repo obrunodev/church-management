@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Membros{% endblock title %}
+
+{% block content %}
+
+    <h1>Membros</h1>
+
+    <a href="{% url "members:create" %}">Novo membro</a>
+
+    <form method="get">
+        <input type="text" name="q" placeholder="Buscar membro">
+    </form>
+
+    <ul>
+        {% for member in members %}
+            <li>
+                {{ member.full_name }} -
+                <a href="{% url "members:update" member.id %}">Editar</a>
+                <a href="{% url "members:delete" member.id %}">Excluir</a>
+            </li>
+        {% empty %}
+            <li>
+                {% if request.GET.q %}
+                    Nenhum membro encontrado.
+                {% else %}
+                    Nenhum membro cadastrado.
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock content %}

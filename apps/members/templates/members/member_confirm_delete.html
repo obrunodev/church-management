@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Membros{% endblock title %}
+
+{% block content %}
+
+    <h1>Tem certeza que deseja excluir o membro {{ object.full_name }}</h1>
+
+    <a href="{% url "members:list" %}">Voltar</a>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Confirmar</button>
+    </form>
+
+{% endblock content %}
