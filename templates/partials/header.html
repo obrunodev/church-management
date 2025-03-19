@@ -148,10 +148,14 @@
               <!-- END Side Overlay -->
 
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1" href="op_auth_signin.html">
-                <span>Sign Out</span>
-                <i class="fa fa-fw fa-sign-out-alt opacity-25"></i>
-              </a>
+              
+              <form action="{% url "users:logout" %}" method="post">
+                  {% csrf_token %}
+                  <button type="submit" class="dropdown-item d-flex align-items-center justify-content-between space-x-1">
+                    <span>Sair</span>
+                    <i class="fa fa-fw fa-sign-out-alt opacity-25"></i>
+                  </button>
+              </form>
             </div>
           </div>
         </div>
