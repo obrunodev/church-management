@@ -24,12 +24,16 @@
 <body>
     <div id="page-container" class="sidebar-o enable-page-overlay side-scroll page-header-modern main-content-boxed">
         {% if user.is_authenticated %}
-            {% include "partials/aside.html" %}
             {% include "partials/sidebar.html" %}
             {% include "partials/header.html" %}
         {% endif %}
         <main id="main-container">
             <div class="content">
+                {% if not user.churches.exists %}
+                    <div class="alert alert-danger" role="alert">
+                        Você não está associado a nenhuma igreja.
+                    </div>
+                {% endif %}
                 {% block content %}{% endblock content %}
             </div>
         </main>

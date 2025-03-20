@@ -1,45 +1,126 @@
 {% extends "base.html" %}
-
-{% block title %}Membros{% endblock title %}
-
+{% block title %}
+    Membros
+{% endblock title %}
 {% block content %}
-
-    <h3>Membros</h3>
-
-    <a href="{% url "members:create" %}" class="btn btn-primary btn-sm mb-3">Novo membro</a>
+    <div class="d-flex justify-content-between align-items-center">
+        <h3 class="mb-3">Membros</h3>
+        <a href="{% url "members:create" %}" class="btn btn-primary btn-sm mb-3">Novo membro</a>
+    </div>
+    <div class="row">
+        <div class="col-6 col-xl-3">
+            <a class="block block-rounded block-bordered block-link-shadow">
+                <div class="block-content block-content-full d-sm-flex justify-content-between align-items-center">
+                    <div class="d-none d-sm-block">
+                        <i class="si si-bag fa-2x text-primary-light"></i>
+                    </div>
+                    <div class="text-end">
+                        <div class="fs-3 fw-semibold text-primary">{{ members.count }}</div>
+                        <div class="fs-sm fw-semibold text-uppercase text-muted">Total de Membros</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-6 col-xl-3">
+            <a class="block block-rounded block-bordered block-link-shadow">
+                <div class="block-content block-content-full d-sm-flex justify-content-between align-items-center">
+                    <div class="d-none d-sm-block">
+                        <i class="si si-wallet fa-2x text-earth-light"></i>
+                    </div>
+                    <div class="text-end">
+                        <div class="fs-3 fw-semibold text-earth">{{ active_members }}</div>
+                        <div class="fs-sm fw-semibold text-uppercase text-muted">Membros Ativos</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-6 col-xl-3">
+            <a class="block block-rounded block-bordered block-link-shadow">
+                <div class="block-content block-content-full d-sm-flex justify-content-between align-items-center">
+                    <div class="d-none d-sm-block">
+                        <i class="si si-envelope-open fa-2x text-elegance-light"></i>
+                    </div>
+                    <div class="text-end">
+                        <div class="fs-3 fw-semibold text-elegance">{{ baptized_members }}</div>
+                        <div class="fs-sm fw-semibold text-uppercase text-muted">Membros Batizados</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-6 col-xl-3">
+            <a class="block block-rounded block-bordered block-link-shadow">
+                <div class="block-content block-content-full d-sm-flex justify-content-between align-items-center">
+                    <div class="d-none d-sm-block">
+                        <i class="si si-users fa-2x text-pulse"></i>
+                    </div>
+                    <div class="text-end">
+                        <div class="fs-3 fw-semibold text-pulse">{{ not_baptized_members }}</div>
+                        <div class="fs-sm fw-semibold text-uppercase text-muted">Não Batizados</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
 
     <form method="get">
-        <input type="text" name="q" placeholder="Buscar membro" class="form-control" value="{{ request.GET.q }}">
+        <div class="row">
+            <div class="col-12 col-md-7 mb-3">
+                <input type="text"
+                       name="q"
+                       placeholder="Buscar membro"
+                       class="form-control"
+                       value="{{ request.GET.q }}">
+            </div>
+            <div class="col-12 col-md-2 mb-3">
+                <select name="status" class="form-select">
+                    <option value="">Todos os Status</option>
+                    <option value="active" {% if request.GET.status == "active" %}selected{% endif %}>Ativo</option>
+                    <option value="inactive" {% if request.GET.status == "inactive" %}selected{% endif %}>Inativo</option>
+                </select>
+            </div>
+            <div class="col-12 col-md-2 mb-3">
+                <select name="category" class="form-select">
+                    <option value="">Todas as categorias</option>
+                    <option value="active_members">Membros ativos</option>
+                </select>
+            </div>
+            <div class="col-12 col-md-1 mb-3">
+                <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+            </div>
+        </div>
     </form>
 
-    <table class="table my-3">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for member in members %}
-                <tr>
-                    <td>{{ member.full_name }}</td>
-                    <td class="text-end">
-                        <a href="{% url "members:update" member.id %}" class="me-3">Editar</a>
-                        <a href="{% url "members:delete" member.id %}" class="text-danger">Excluir</a>
-                    </td>
-                </tr>
-            {% empty %}
-                <tr>
-                    <td colspan="2" class="text-center">
-                        {% if request.GET.q %}
-                            Nenhum membro encontrado.
-                        {% else %}
-                            Nenhum membro cadastrado.
-                        {% endif %}
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
+    <div class="card">
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for member in members %}
+                        <tr>
+                            <td>{{ member.full_name }}</td>
+                            <td class="text-end">
+                                <a href="{% url "members:update" member.id %}" class="me-3">Editar</a>
+                                <a href="{% url "members:delete" member.id %}" class="text-danger">Excluir</a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="2" class="text-center">
+                                {% if request.GET.q %}
+                                    Nenhum membro encontrado.
+                                {% else %}
+                                    Nenhum membro cadastrado.
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock content %}

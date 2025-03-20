@@ -1,4 +1,5 @@
 from apps.members.managers import MemberManager
+from apps.users.models import Church
 from django.db import models
 from shared.models import BaseModel
 
@@ -31,6 +32,7 @@ class Member(BaseModel):
         ('suspended', 'Suspenso'),
     ]
 
+    church = models.ForeignKey(Church, on_delete=models.CASCADE, related_name='members', blank=True, null=True)
     full_name = models.CharField(max_length=255)
     cpf = models.CharField(max_length=14)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
