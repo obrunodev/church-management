@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock title %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-body">
+            <h1>Dashboard</h1>
+            <p class="mb-0">
+                <strong>Igreja:</strong>
+                {{ user.churches.first.name }}
+            </p>
+        </div>
+    </div>
+
+    <div class="card bg-secondary my-3">
+        <div class="card-body">
+            <h1>Título de mensagem</h1>
+            <p class="mb-0">Uma mensagem diferente aqui.</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6 col-xl-3">
+            <a class="block block-rounded block-bordered block-link-shadow" href="{% url "members:list" %}">
+                <div class="block-content block-content-full d-sm-flex justify-content-between align-items-center">
+                    <div class="d-none d-sm-block">
+                        <i class="si si-bag fa-2x text-primary-light"></i>
+                    </div>
+                    <div class="text-end">
+                        <div class="fs-3 fw-semibold text-primary">{{ members_count|default:0 }}</div>
+                        <div class="fs-sm fw-semibold text-uppercase text-muted">Membros</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-6 col-xl-3">
+            <a class="block block-rounded block-bordered block-link-shadow">
+                <div class="block-content block-content-full d-sm-flex justify-content-between align-items-center">
+                    <div class="d-none d-sm-block">
+                        <i class="si si-wallet fa-2x text-earth-light"></i>
+                    </div>
+                    <div class="text-end">
+                        <div class="fs-3 fw-semibold text-earth">{{ deacons.count|default:0 }}</div>
+                        <div class="fs-sm fw-semibold text-uppercase text-muted">Obreiros</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-6 col-xl-3">
+            <a class="block block-rounded block-bordered block-link-shadow">
+                <div class="block-content block-content-full d-sm-flex justify-content-between align-items-center">
+                    <div class="d-none d-sm-block">
+                        <i class="si si-envelope-open fa-2x text-elegance-light"></i>
+                    </div>
+                    <div class="text-end">
+                        <div class="fs-3 fw-semibold text-elegance">{{ not_baptized_members|default:0 }}</div>
+                        <div class="fs-sm fw-semibold text-uppercase text-muted">Não Batizados</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-6 col-xl-3">
+            <a class="block block-rounded block-bordered block-link-shadow">
+                <div class="block-content block-content-full d-sm-flex justify-content-between align-items-center">
+                    <div class="d-none d-sm-block">
+                        <i class="si si-users fa-2x text-pulse"></i>
+                    </div>
+                    <div class="text-end">
+                        <div class="fs-3 fw-semibold text-pulse">{{ events.counts|default:0 }}</div>
+                        <div class="fs-sm fw-semibold text-uppercase text-muted">Eventos</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+{% endblock content %}
