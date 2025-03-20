@@ -1,17 +1,47 @@
-{% extends "base.html" %}
-
-{% block title %}Login{% endblock title %}
-
+{% extends "auth_base.html" %}
+{% block title %}
+    Login
+{% endblock title %}
 {% block content %}
-
-    <div class="card">
-        <div class="card-body">
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="btn btn-primary">Login</button>
-            </form>
-        </div>
+    <div class="py-4 text-center">
+        <a class="link-fx fw-bold" href="index.html">
+            <i class="fa fa-fire"></i>
+            <span class="fs-4 text-body-color">Church</span><span class="fs-4">Manager</span>
+        </a>
+        <h1 class="h3 fw-bold mt-4 mb-1">
+            Seja bem-vindo ao melhor sistema de gestão de igrejas!
+        </h1>
+        <h2 class="fs-5 lh-base fw-normal text-muted mb-0">
+            Hoje é um grande dia!
+        </h2>
     </div>
-
+    <form class="js-validation-signin" method="post">
+        {% csrf_token %}
+        <div class="block block-themed block-rounded block-fx-shadow">
+            <div class="block-header bg-gd-dusk">
+                <h3 class="block-title">Preencha o formulário para fazer login</h3>
+            </div>
+            <div class="block-content">
+                {% for field in form %}
+                    <div class="form-floating mb-4">
+                        <input type="{{ field.field.widget.input_type }}" class="form-control" id="{{ field.auto_id }}" name="{{ field.name }}" placeholder="{{ field.label }}">
+                        <label class="form-label" for="{{ field.auto_id }}">{{ field.label }}</label>
+                        {% if field.help_text %}
+                            <small class="form-text text-muted">{{ field.help_text }}</small>
+                        {% endif %}
+                        {% for error in field.errors %}
+                            <div class="invalid-feedback d-block">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+                <div class="row">
+                    <div class="col-sm-6 d-sm-flex align-items-center push">
+                    </div>
+                    <div class="col-sm-6 text-sm-end push">
+                        <button type="submit" class="btn btn-lg btn-alt-primary fw-medium">Acessar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 {% endblock content %}
